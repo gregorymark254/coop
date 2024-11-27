@@ -25,7 +25,6 @@ const App = () => {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <Toaster position='top-center' richColors />
       {/* Topnav - Occupies the full width */}
       <div className="w-full">
         <Topnav />
@@ -45,6 +44,7 @@ const App = () => {
             activeMenu ? 'md:ml-4' : 'ml-0'
           } min-h-screen`}
         >
+          <Toaster position='top-center' richColors />
           <Routes>
             {/* dashboard */}
             <Route path="/" element={<Home />} />
