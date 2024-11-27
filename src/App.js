@@ -12,15 +12,20 @@ import { useStateContext } from './components/Context/ContextProvider';
 import useToken from './components/Context/AuthToken';
 import { Routes, Route } from 'react-router-dom';
 import LogoutModal from './pages/Logout';
+import { Toaster } from 'sonner';
 
 const App = () => {
   const { activeMenu } = useStateContext();
   const { accessToken, setAccessToken } = useToken();
 
-  
+
+  // if (!accessToken) {
+  //   return <Login setAccessToken={setAccessToken} />;
+  // }
 
   return (
     <main className="min-h-screen flex flex-col">
+      <Toaster position='top-center' richColors />
       {/* Topnav - Occupies the full width */}
       <div className="w-full">
         <Topnav />

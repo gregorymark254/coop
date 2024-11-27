@@ -30,7 +30,7 @@ body {
 }
 
 .topnav {
-  background: transparent url("./components/header/header@2x.png") 0% 0%
+  background: transparent url("./components/images/header@2x.png") 0% 0%
     no-repeat padding-box;
   opacity: 1;
   width: 100%;

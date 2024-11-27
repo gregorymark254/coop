@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdOutlineCancel } from 'react-icons/md';
 import { useStateContext } from '../Context/ContextProvider';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import 'tw-elements';
 
 const SideBar = () => {
@@ -16,7 +13,6 @@ const SideBar = () => {
 
   return (
     <main className='bg-white text-black h-screen md:overflow-hidden relative overflow-auto md:hover:overflow-auto pb-10'>
-      <ToastContainer position='top-right' limit={1} />
       {activeMenu && (
         <>
           <nav>
