@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api/api'
 import { useNavigate } from 'react-router-dom';
 import AuthToken from '../components/Context/AuthToken';
-import { toast } from 'sonner'
+import { toast } from 'sonner';
 import greenLeaves from '../components/images/green-leaves-white-background@2x.png';
 import bg from '../components/images/bg.png';
 import { Eye, EyeOff } from 'lucide-react';
@@ -27,6 +27,8 @@ const Login = ({ setAccessToken }) => {
     } catch (error) {
       if (!error?.response) {
         toast.error('Network error! Check your connection.');
+      } else if (error.response.status === 400) {
+        toast.error(error.response.data);
       } else {
         toast.error('An error occurred while logging in');
       }
@@ -83,7 +85,7 @@ const Login = ({ setAccessToken }) => {
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#009438] font-poppins"
+                    className="w-full px-4 py-2 border-b border-b-black font-poppins"
                   />
                 </div>
               </div>
@@ -101,11 +103,11 @@ const Login = ({ setAccessToken }) => {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#009438] font-poppins pr-10"
+                    className="w-full px-4 py-2 border-b border-b-black font-poppins"
                   />
                   <button
                     type="button"
-                    className="absolute top-1/2 -translate-y-1/2 right-3 text-gray-500 hover:text-gray-700"
+                    className="absolute top-12 -translate-y-1/2 right-3  text-gray-500 hover:text-gray-700"
                     onClick={togglePasswordVisibility}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
