@@ -2,6 +2,8 @@ import Topnav from './components/Nav/TopBar';
 import Sidebar from './components/Nav/SideBar';
 
 import Home from './pages/Home';
+import Transactions from './pages/Transactions'
+import Reports from './pages/Reports'
 import Login from './pages/Login';
 import Missing from './pages/Missing';
 import Unauthorised from './pages/Unauthorised';
@@ -14,9 +16,9 @@ const App = () => {
   const { activeMenu } = useStateContext();
 
   const { accessToken, setAccessToken } = useToken();
-  // if (!accessToken) {
-  //   return <Login setAccessToken={setAccessToken} />;
-  // }
+  if (!accessToken) {
+    return <Login setAccessToken={setAccessToken} />;
+  }
 
   return (
     <main>
@@ -47,6 +49,8 @@ const App = () => {
               {/* dashboard  */}
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login setAccessToken={setAccessToken} />} />
+              <Route path='/transactions' element={<Transactions />} />
+              <Route path='/reports' element={<Reports />} />
 
               <Route path='/unauthorised' element={<Unauthorised />} />
               <Route path='*' element={<Missing />} Missing />

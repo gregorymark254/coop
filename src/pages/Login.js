@@ -36,11 +36,11 @@ const Login = ({ setAccessToken }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (AuthToken) {
-  //     navigate('/');
-  //   }
-  // }, [navigate]);
+  useEffect(() => {
+    if (AuthToken) {
+      navigate('/');
+    }
+  }, [navigate]);
   
   
   return (
