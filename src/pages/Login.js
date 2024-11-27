@@ -1,9 +1,10 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../api/api'
 import { useNavigate } from 'react-router-dom';
 import AuthToken from '../components/Context/AuthToken';
-import {toast} from 'sonner'
-
+import { toast } from 'sonner'
+import greenLeaves from '../components/images/green-leaves-white-background@2x.png';
+import bg from '../components/images/bg.png';
 
 const Login = ({ setAccessToken }) => {
 
@@ -18,8 +19,8 @@ const Login = ({ setAccessToken }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = await axios.post('/auth/login',
-        { email, password }
+      const token = await axios.post('https://dummyjson.com/auth/login',
+        { username, password }
       );
       setAccessToken(token);
       toast.success('Login Successful.');
@@ -41,49 +42,80 @@ const Login = ({ setAccessToken }) => {
       navigate('/');
     }
   }, [navigate]);
-  
-  
-  return (
-    <div className='flex md:flex-row justify-center gap-8 md:gap-0 flex-col h-screen w-full'>
-      <div className='md:bg-customGreen flex justify-center md:w-1/2 items-center'>
-        <img src="https://store-images.s-microsoft.com/image/apps.39241.13695268441854138.b66d38c1-5399-4eb1-919c-81ca75db686f.2c431d86-0de1-4c9a-a4ca-53cc8332ef13" alt="" />
-      </div>
-      <div className=" flex justify-center md:w-1/2 items-center relative ">
 
-      <div className="bg-white w-[70%] p-4 rounded ">
-        <div className='flex flex-col items-center gap-1 md:mb-12 mb-6'>
-          <h2 className='text-customGreen text-3xl text-center font-semibold overflow-hidden'>Login</h2>
-          <div className='w-16 border border-customGreen'></div>
-          <div className='w-12 border border-customGreen'></div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            <label htmlFor="email" className="block text-[#737272]">Email</label>
-            <input 
-              type="email" 
-              id="email" name="email" 
-              className="w-full bg-[#F5F5F5] px-3 py-2 border rounded-lg" 
-              required autoComplete='off' 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-[#737272]">Password</label>
-            <input 
-              type="password" 
-              id="password" name="password" 
-              className="w-full bg-[#F5F5F5] px-3 py-2 border rounded-lg" 
-              required autoComplete='off' 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="w-full bg-customGreen text-white px-4 py-2 rounded-lg hover:bg-green-600">{loading ? 'Please Wait...' : 'Login'}</button>
-        </form>
+
+  return (
+    <div className=' grid grid-cols-1 md:grid-cols-2 bg-white h-dvh overflow-hidden poppins'>
+      <div className="w-full h-fit bg-repeat bg-">
+        <img src={bg} alt="bg" className=" w-full h-full" />
       </div>
+
+
+      <div className="flex justify-center md:items-center h-screen ">
+        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md absolute">
+          <img src={greenLeaves} alt="green leaves" className="w-20 h-20 top-0 left-0" />
+
+
+          <h2 className="text-2xl font-bold mb-4 text-[#009438] font-poppins">
+            <span className='text-[#707070] uppercase block'>Welcome to</span>
+            <p className='font-bold text-4xl'>
+              <span className='block'>Inua Mkulima - </span>
+              Subsidy Program
+            </p>
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4 my-4">
+            <div>
+              <h6 className='text-[#707070] font-medium'>Enter your username to continue</h6>
+              <div className='mb-4'>
+
+                <label htmlFor="password" className="block mb-2 font-poppins text-[#707070]">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#009438] font-poppins"
+                />
+              </div>
+
+              <div className='mb-4'>
+
+                <label htmlFor="password" className="block mb-2 font-poppins text-[#707070]">
+                  Username
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#009438] font-poppins"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#E8B40A] hover:bg-yellow-600 text-white py-2 px-4 rounded-md font-poppins"
+            >
+              Continue <span className='ml-10'>{">"} </span>
+            </button>
+          </form>
+        </div>
+        {/* <div
+        className="absolute top-0 left-0 w-full h-full bg-repeat"
+        style={{
+          backgroundImage: `url(${greenLeaves})`,
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+        }}
+      >
+      </div> */}
+      </div>
+
     </div>
-    </div>
+
   )
 }
 
