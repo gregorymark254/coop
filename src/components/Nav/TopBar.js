@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useStateContext } from '../Context/ContextProvider';
+import { MdOutlineKeyboardArrowDown, MdLogout } from 'react-icons/md';
+
 
 const Navbar = () => {
   const { activeMenu, setActiveMenu, setScreenSize, screenSize } = useStateContext();
@@ -25,61 +27,61 @@ const Navbar = () => {
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
-  // Time
-  const date = new Date();
-  const [dateTime, setDateTime] = useState({
-    hours: date.getHours(),
-    minutes: date.getMinutes(),
-    seconds: date.getSeconds()
-  });
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const date = new Date();
-      setDateTime({
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        seconds: date.getSeconds()
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   // logout
   const signOut = () => {
-    localStorage.removeItem('token');
+    window.localStorage.removeItem('token');
     window.location.reload();
   };
 
-  // user details
-  const name = localStorage.getItem('token');
-  const parsedItem = JSON.parse(name);
+  // // getting current user
+  // const currentUser = window.localStorage.getItem('token');
+  // const user = JSON.parse(currentUser).data;
 
   return (
-    <div className='flex justify-between p-2  bg-white shadow-md'>
-      <div className='text-xl rounded-full p-3 hover:bg-light-gray'>
-        <span onClick={handleActiveMenu}><AiOutlineMenu /></span>
+    <div className='flex justify-between items-center p-1 bg-white shadow-md'>
+      <div className='text-xl p-2 hover:cursor-pointer'>
+        <button className='text-[#0E6F1E]' onClick={handleActiveMenu}><AiOutlineMenu /></button>
       </div>
       <div>
-        <div className='flex items-center space-x-5 px-3'>
-          <img className='rounded-full w-8 h-8' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaS_K13w6lMdb6kZEGj2wZ3jnIwap2YTpganfCLWXUr_L-7xvEiTEKFC2iNgRO1XJ184A&usqp=CAU' alt='user-profile' />
-          <div className='dropdown '>
-            <a className=' dropdown-toggle px-4 py-2 bg-slate-100 text-black hover:bg-slate-200 font-medium shadow-md transition duration-150 ease-in-out flex items-center whitespace-nowrap ' href='/#' type='button' id='dropdownMenuButton2' data-bs-toggle='dropdown' aria-expanded='false'>
-              {parsedItem.data.firstName}
-              <svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='caret-down' className='w-2 ml-2' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'>
-                <path fill='currentColor' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z' />
-              </svg>
-            </a>
-            <ul className='dropdown-menu min-w-max absolute  bg-white text-base z-50 float-left  py-2 list-nonetext-left  rounded-lg  shadow-lg  mt-1 hidden m-0 bg-clip-padding border-none' aria-labelledby='dropdownMenuButton2'>
-              <li>
-                <a className='dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700  hover:bg-gray-100' href='/settings'>My Profile</a>
-              </li>
-              <li>
-                <a onClick={signOut} className='dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700  hover:bg-gray-100' href='/#'>Sign Out</a>
-              </li>
-            </ul>
+        <div className='flex items-center space-x-2 px-3'>
+          <div className="flex items-center space-x-4">
+            <button className="p-2 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <img src='https://play-lh.googleusercontent.com/fNpt7HEa9q1Azavxr-SnhK-HztIzlUAGFqRvLiGvxiQzmdFR8-04ji8RuCj5j77RKkA' alt='settings' className='h-6 w-6' />
+            </button>
+            <button className="p-2 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <img src='https://play-lh.googleusercontent.com/fNpt7HEa9q1Azavxr-SnhK-HztIzlUAGFqRvLiGvxiQzmdFR8-04ji8RuCj5j77RKkA' alt='bell' className='h-6 w-6' />
+              <span className="sr-only">View notifications</span>
+            </button>
+            <div className="relative">
+              <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white" />
+              <img
+                className="h-8 w-8 rounded-full"
+                src='https://play-lh.googleusercontent.com/fNpt7HEa9q1Azavxr-SnhK-HztIzlUAGFqRvLiGvxiQzmdFR8-04ji8RuCj5j77RKkA'
+                alt="User Avatar"
+              />
+            </div>
           </div>
           <div>
-            <h3>{dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}</h3>
+            <a className='dropdown-toggle px-4 py-1  text-black font-medium transition duration-150 ease-in-out flex items -center whitespace-nowrap ' href='/#' type='button' id='dropdownMenuButton2' data-bs-toggle='dropdown' aria-expanded='false'>
+              <div className='grid'>
+                <span className='font-bold text-[#007CFF]'>sf</span>
+                <span className='text-green-700 font-bold'>dsfsd</span>
+              </div>
+              <span className='w-4 h-4 ml-auto mb-6 text-xl text-[#007CFF]'><MdOutlineKeyboardArrowDown /></span>
+            </a>
+            <ul className='dropdown-menu w-48 absolute  bg-white text-base z-50 float-left  py-2 list-nonetext-left  rounded-lg  shadow-lg  mt-1 hidden m-0 bg-clip-padding border-none' aria-labelledby='dropdownMenuButton2'>
+              <div className='flex items-center justify-center'>
+                <img className='rounded-full w-14 h-14' src='https://play-lh.googleusercontent.com/fNpt7HEa9q1Azavxr-SnhK-HztIzlUAGFqRvLiGvxiQzmdFR8-04ji8RuCj5j77RKkA' alt='user-profile' />
+              </div>
+              <div className='grid text-center my-2'>
+                <span className='font-bold'>sdfsd</span>
+                <p>dsfsdf</p>
+              </div>
+              <hr />
+              <li>
+                <a onClick={signOut} className='dropdown-item text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-[#fb0000]  hover:bg-gray-100 flex items-center' href='/#'><MdLogout />&nbsp;Sign Out</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

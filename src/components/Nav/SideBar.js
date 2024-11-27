@@ -10,33 +10,18 @@ import 'tw-elements';
 const SideBar = () => {
   const { activeMenu, setActiveMenu, screenSize } = useStateContext();
 
-  const handleCloseSideBar = () => {
-    if (activeMenu !== undefined && screenSize <= 900) {
-      setActiveMenu(false);
-    }
-  };
 
-  // user details
-  const name = localStorage.getItem('token');
-  const parsedItem = JSON.parse(name);
+  // // user details
+  // const name = localStorage.getItem('token');
+  // const parsedItem = JSON.parse(name);
 
   return (
     <main className='bg-[#181D31] text-white h-screen md:overflow-hidden relative overflow-auto md:hover:overflow-auto pb-10'>
       <ToastContainer position='top-right' limit={1} />
       {activeMenu && (
         <>
-          <div className='p-4'>
-            <h1>Naija Prime</h1>
-          </div>
           <div className='flex justify-between items-center pb-3'>
-            <Link
-              to='/'
-              onClick={handleCloseSideBar}
-              className='items-center gap-3 ml-3 mt-4 flex'
-            >
-              <img className='h-10 w-10 rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaS_K13w6lMdb6kZEGj2wZ3jnIwap2YTpganfCLWXUr_L-7xvEiTEKFC2iNgRO1XJ184A&usqp=CAU' alt='' />
-              <h2>{parsedItem.data.firstName} {parsedItem.data.lastName}</h2>
-            </Link>
+            <h1>Naija Prime</h1>
             <div className='text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden'>
               <span onClick={() => setActiveMenu(!activeMenu)}><MdOutlineCancel /></span>
             </div>

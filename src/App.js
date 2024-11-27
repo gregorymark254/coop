@@ -1,31 +1,22 @@
 import Topnav from './components/Nav/TopBar';
 import Sidebar from './components/Nav/SideBar';
-import Users from './components/Users/User';
-import EditUser from './components/Users/EditUser';
-import AddUser from './components/Users/AddUser';
-import Setting from './components/Settings/Setting';
-import Balance from './components/Account/Balance';
-import Payments from './components/Account/Payments';
-import Reviews from './components/Uploads/Reviews';
-import VideoUploads from './components/Uploads/VideoUplods';
-import MyUploads from './components/Uploads/MyUploads'
 
 import Home from './pages/Home';
-import Login from './components/Login/Login';
+import Login from './pages/Login';
 import Missing from './pages/Missing';
 import Unauthorised from './pages/Unauthorised';
 
 import { useStateContext } from './components/Context/ContextProvider';
-import useToken from './components/Context/UseToken';
+import useToken from './components/Context/AuthToken';
 import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   const { activeMenu } = useStateContext();
 
   const { accessToken, setAccessToken } = useToken();
-  if (!accessToken) {
-    return <Login setAccessToken={setAccessToken} />;
-  }
+  // if (!accessToken) {
+  //   return <Login setAccessToken={setAccessToken} />;
+  // }
 
   return (
     <main>
@@ -55,16 +46,8 @@ const App = () => {
             <Routes>
               {/* dashboard  */}
               <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/users' element={<Users />} />
-              <Route path='/user/add' element={<AddUser />} />
-              <Route path='/user/edit/:id' element={<EditUser />} />
-              <Route path='/account-balance' element={<Balance />} />
-              <Route path='/payments' element={<Payments />} />
-              <Route path='/reviews' element={<Reviews />} />
-              <Route path='/video-uploads' element={<VideoUploads />} />
-              <Route path='/my-uploads' element={<MyUploads />} />
-              <Route path='/settings' element={<Setting />} />
+              <Route path='/login' element={<Login setAccessToken={setAccessToken} />} />
+
               <Route path='/unauthorised' element={<Unauthorised />} />
               <Route path='*' element={<Missing />} Missing />
             </Routes>

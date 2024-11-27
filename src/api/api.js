@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://naija.cleverapps.io/'
+  baseURL: process.env.REACT_APP_BASEURL
 });
