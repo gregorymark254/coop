@@ -11,14 +11,13 @@ import Unauthorised from './pages/Unauthorised';
 import { useStateContext } from './components/Context/ContextProvider';
 import useToken from './components/Context/AuthToken';
 import { Routes, Route } from 'react-router-dom';
+import LogoutModal from './pages/Logout';
 
 const App = () => {
   const { activeMenu } = useStateContext();
   const { accessToken, setAccessToken } = useToken();
 
-  if (!accessToken) {
-    return <Login setAccessToken={setAccessToken} />;
-  }
+  
 
   return (
     <main className="min-h-screen flex flex-col">
@@ -47,6 +46,7 @@ const App = () => {
             <Route path="/login" element={<Login setAccessToken={setAccessToken} />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/logout" element={<LogoutModal />} />
             <Route path="/unauthorised" element={<Unauthorised />} />
             <Route path="*" element={<Missing />} />
           </Routes>
