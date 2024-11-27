@@ -17,9 +17,9 @@ const App = () => {
   const { activeMenu } = useStateContext();
   const { accessToken, setAccessToken } = useToken();
 
-  if (!accessToken) {
-    return <Login setAccessToken={setAccessToken} />;
-  }
+  // if (!accessToken) {
+  //   return <Login setAccessToken={setAccessToken} />;
+  // }
 
   return (
     <main className="min-h-screen flex flex-col">
