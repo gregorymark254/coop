@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useStateContext } from '../Context/ContextProvider';
 import { MdLogout } from "react-icons/md";
-
+import swal from 'sweetalert';
 
 const Navbar = () => {
   const { activeMenu, setActiveMenu, setScreenSize, screenSize } = useStateContext();
@@ -27,15 +27,22 @@ const Navbar = () => {
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
-  // logout
+  // Logout function with SweetAlert confirmation
   const signOut = () => {
-    window.localStorage.removeItem('token');
-    window.location.reload();
+    swal({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      buttons: ["Cancel", "Yes, Log out"],
+      dangerMode: true,
+    }).then((willLogout) => {
+      if (willLogout) {
+        // Remove the token and reload the page to log out
+        window.localStorage.removeItem('token');
+        window.location.reload();
+      }
+    });
   };
-
-  // // getting current user
-  // const currentUser = window.localStorage.getItem('token');
-  // const user = JSON.parse(currentUser).data;
 
   return (
     <main className='topnav'>
@@ -46,7 +53,9 @@ const Navbar = () => {
         </div>
         <div className='flex items-center space-x-5'>
           <h5><b>Logged In As: KIMATHI</b></h5>
-          <button onClick={signOut} className='border border-white rounded-md px-4 py-1 flex items-center gap-1'><span><MdLogout /></span>Logout</button>
+          <button onClick={signOut} className='border border-white rounded-md px-4 py-1 flex items-center gap-1'>
+            <span><MdLogout /></span>Logout
+          </button>
         </div>
       </div>
     </main>

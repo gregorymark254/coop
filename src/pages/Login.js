@@ -20,7 +20,7 @@ const Login = ({ setAccessToken }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = await axios.post('https://dummyjson.com/auth/login', { username, password });
+      const token = await axios.post('/auth/login', { username, password });
       setAccessToken(token);
       toast.success('Login Successful.');
       navigate('/');
@@ -127,7 +127,7 @@ const Login = ({ setAccessToken }) => {
                 type="submit"
                 className="w-full bg-[#E8B40A] hover:bg-yellow-600 text-white py-2 px-4 rounded-md font-poppins"
               >
-                Login <span className="ml-10">{">"}</span>
+                {loading ? 'Please wait' : 'Login'} <span className="ml-10">{">"}</span>
               </button>
             )}
           </form>
