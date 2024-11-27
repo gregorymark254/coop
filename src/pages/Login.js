@@ -23,7 +23,7 @@ const Login = ({ setAccessToken }) => {
       );
       setAccessToken(token);
       toast.success('Login Successful.');
-      navigate('/app/dashboard');
+      navigate('/');
     } catch (error) {
       if (!error?.response) {
         toast.error('Network error! Check your connection.');
@@ -36,11 +36,11 @@ const Login = ({ setAccessToken }) => {
     }
   };
 
-  useEffect(() => {
-    if (AuthToken) {
-      navigate('/app/dashboard');
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (AuthToken) {
+  //     navigate('/');
+  //   }
+  // }, [navigate]);
   
   
   return (
