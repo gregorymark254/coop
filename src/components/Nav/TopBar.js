@@ -27,7 +27,6 @@ const Navbar = () => {
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
-  // Logout function with SweetAlert confirmation
   const signOut = () => {
     swal({
       title: "Are you sure?",
@@ -37,7 +36,6 @@ const Navbar = () => {
       dangerMode: true,
     }).then((willLogout) => {
       if (willLogout) {
-        // Remove the token and reload the page to log out
         window.localStorage.removeItem('token');
         window.location.reload();
       }

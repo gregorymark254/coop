@@ -65,21 +65,21 @@ const Transactions = () => {
           <tr>
             <td className="px-4 py-2 border-b">NPK 6kgs</td>
             <td className=" px-4 py-2 border-b">2</td>
-            <td className="px-4 py-2 border-b">$10.00</td>
-            <td className="px-4 py-2 border-b">$20.00</td>
-            <td className="px-4 py-2 border-b">$0.00</td>
+            <td className="px-4 py-2 border-b">10.00</td>
+            <td className="px-4 py-2 border-b">20.00</td>
+            <td className="px-4 py-2 border-b">0.00</td>
           </tr>
           <tr>
             <td className="px-4 py-2 border-b">Urea 5kgs</td>
             <td className="px-4 py-2 border-b">1</td>
-            <td className="px-4 py-2 border-b">$15.00</td>
-            <td className="px-4 py-2 border-b">$15.00</td>
-            <td className="px-4 py-2 border-b">$0.00</td>
+            <td className="px-4 py-2 border-b">15.00</td>
+            <td className="px-4 py-2 border-b">15.00</td>
+            <td className="px-4 py-2 border-b">0.00</td>
           </tr>
         </tbody>
       </table>
       <div className="mt-4 bg-green-700 text-white p-4 text-right">
-        <p className="font-bold">Total: &nbsp;&nbsp;&nbsp; <span className="text-lg bg-white text-black py-2 px-4">$35.00</span></p>
+        <p className="font-bold">Total: &nbsp;&nbsp;&nbsp; <span className="text-lg bg-white text-black py-2 px-4">35.00</span></p>
       </div>
     </div>
   )

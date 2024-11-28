@@ -15,7 +15,7 @@ const Login = ({ setAccessToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Login function
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,11 +38,11 @@ const Login = ({ setAccessToken }) => {
     }
   };
 
-  useEffect(() => {
-    if (AuthToken) {
-      navigate('/');
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (AuthToken) {
+  //     navigate('/');
+  //   }
+  // }, [navigate]);
 
   const handleContinue = () => {
     if (username.trim() !== '') {

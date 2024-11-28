@@ -2,18 +2,16 @@ import { useState, useEffect } from 'react';
 import axios from '../../api/api';
 import swal from 'sweetalert';
 
-export default function AuthToken () {
-  function getToken () {
+export default function AuthToken() {
+  function getToken() {
     const tokenString = window.localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
-    // Check if the token exists and is not expired
     if (userToken && userToken.expiresAt > new Date().getTime()) {
       axios.defaults.headers.common.Authorization = `Bearer ${userToken.data.authorisation.token}`;
       axios.defaults.headers.common['Content-Type'] = 'application/json';
       return userToken?.data.authorisation.token;
     } else {
-      // Remove the token if it is expired or not present
       window.localStorage.removeItem('token');
       return null;
     }
@@ -30,14 +28,12 @@ export default function AuthToken () {
   };
 
   useEffect(() => {
-    // Check and remove expired token on component mount
     getToken();
 
-    // Set up an interval to check token expiration every minute
     const checkTokenInterval = setInterval(() => {
       const token = getToken();
       if (!token) {
-        clearInterval(checkTokenInterval); // Stop checking once token is expired
+        clearInterval(checkTokenInterval);
         const handleSessionExpired = async () => {
           await swal('Session has expired!', 'Please log in again.', 'info');
           window.location.href = '/';
@@ -45,7 +41,7 @@ export default function AuthToken () {
         };
         handleSessionExpired();
       }
-    }, 1 * 60 * 60 * 1000); // Check every 1 hour
+    }, 1 * 60 * 60 * 1000);
 
     return () => clearInterval(checkTokenInterval);
   }, []);
