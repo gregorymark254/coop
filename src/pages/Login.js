@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../api/api'
+import React, { useState } from 'react';
+import axios from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import AuthToken from '../components/Context/AuthToken';
 import { toast } from 'sonner';
 import greenLeaves from '../components/images/green-leaves-white-background@2x.png';
 import bg from '../components/images/bg.png';
@@ -13,15 +12,35 @@ const Login = ({ setAccessToken }) => {
   const [loading, setLoading] = useState(false);
   const [showPasswordField, setShowPasswordField] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({ username: '', password: '' });
   const navigate = useNavigate();
 
+  // Handle username and password input change
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
+  // Form submission handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({ username: '', password: '' }); // Clear previous errors
+
+    // Basic validation
+    if (!username) {
+      setErrors((prevErrors) => ({ ...prevErrors, username: 'Username is required.' }));
+      setLoading(false);
+      return;
+    }
+
+    if (!password) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: 'Password is required.' }));
+      setLoading(false);
+      return;
+    }
+
     try {
-      const token = await axios.post('/auth/login', { username, password });
-      setAccessToken(token);
+      const response = await axios.post('/auth/login', { username, password });
+      setAccessToken(response.data.token);
       toast.success('Login Successful.');
       navigate('/');
     } catch (error) {
@@ -38,20 +57,13 @@ const Login = ({ setAccessToken }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (AuthToken) {
-  //     navigate('/');
-  //   }
-  // }, [navigate]);
+  // Show password toggle
+  const togglePasswordVisibility = () => setShowPassword((prevState) => !prevState);
 
   const handleContinue = () => {
     if (username.trim() !== '') {
       setShowPasswordField(true);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
   };
 
   return (
@@ -60,7 +72,7 @@ const Login = ({ setAccessToken }) => {
         <img src={bg} alt="bg" className="w-full h-full" />
       </div>
 
-      <div className="flex justify-center md:items-center h-screen ">
+      <div className="flex justify-center md:items-center h-screen">
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md absolute">
           <img src={greenLeaves} alt="green leaves" className="w-20 h-20 top-0 left-0" />
 
@@ -73,6 +85,7 @@ const Login = ({ setAccessToken }) => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4 my-4">
+            {/* Username Input */}
             {!showPasswordField && (
               <div>
                 <h6 className="text-[#707070] font-medium">Enter your username to continue</h6>
@@ -84,13 +97,15 @@ const Login = ({ setAccessToken }) => {
                     type="text"
                     id="username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={handleUsernameChange}
                     className="w-full px-4 py-2 border-b border-b-black font-poppins"
                   />
+                  {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                 </div>
               </div>
             )}
 
+            {/* Password Input */}
             {showPasswordField && (
               <div>
                 <h6 className="text-[#707070] font-medium">Enter your password</h6>
@@ -102,7 +117,7 @@ const Login = ({ setAccessToken }) => {
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange}
                     className="w-full px-4 py-2 border-b border-b-black font-poppins"
                   />
                   <button
@@ -112,10 +127,12 @@ const Login = ({ setAccessToken }) => {
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
+                  {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                 </div>
               </div>
             )}
 
+            {/* Continue Button */}
             {!showPasswordField ? (
               <button
                 type="button"
@@ -128,6 +145,7 @@ const Login = ({ setAccessToken }) => {
               <button
                 type="submit"
                 className="w-full bg-[#E8B40A] hover:bg-yellow-600 text-white py-2 px-4 rounded-md font-poppins"
+                disabled={loading}
               >
                 {loading ? 'Please wait' : 'Login'} <span className="ml-10">{">"}</span>
               </button>
